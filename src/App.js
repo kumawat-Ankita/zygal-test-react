@@ -15,26 +15,29 @@ const App = () => {
   const avatars = Array.from({ length: 10 }, (_, i) => i + 1);
   const images = Array.from({ length: 10 }, (_, i) => i + 1);
 
-  useEffect(() => {
-    validateEmail();
-    validatePassword();
-  }, [email, password]);
-
-  const validateEmail = () => {
+  const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(emailPattern.test(email) ? '' : 'Invalid email address');
+    return emailPattern.test(email) ? '' : 'Invalid email address';
   };
 
-  const validatePassword = () => {
-    setPasswordError(
-      password.length >= 6
-        ? ''
-        : 'Password must be at least 6 characters long'
-    );
+  const validatePassword = (password) => {
+    return password.length >= 6 ? '' : 'Password must be at least 6 characters long';
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    setEmailError(validateEmail(newEmail));
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
   };
 
   return (
-    <div className="card-container grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="card-container">
       {/* Carousel Section */}
       <div className="card w-80 bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
         <div className="carousel relative w-full">
@@ -54,8 +57,7 @@ const App = () => {
             {slides.map((_, index) => (
               <div
                 key={index}
-                className={`dot w-3 h-3 bg-gray-400 rounded-full mx-1 cursor-pointer ${index === currentSlide ? 'bg-gray-800' : ''
-                  }`}
+                className={`dot w-3 h-3 bg-gray-400 rounded-full mx-1 cursor-pointer ${index === currentSlide ? 'bg-gray-800' : ''}`}
                 onClick={() => setCurrentSlide(index)}
               ></div>
             ))}
@@ -74,7 +76,7 @@ const App = () => {
               type="email"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               className={`w-full p-2 border rounded ${emailError ? 'border-red-500' : (email ? 'border-green-500' : '')}`}
             />
             {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
@@ -85,7 +87,7 @@ const App = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               className={`w-full p-2 border rounded ${passwordError ? 'border-red-500' : (password ? 'border-green-500' : '')}`}
             />
             {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
