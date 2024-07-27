@@ -1,0 +1,26 @@
+.carousel-slide {
+  height: 200px;
+  transition: transform 0.5s ease-in-out;
+}
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  /* scrollbar-width: auto; */
+}
+.user-logo {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyIGIqBdSneuBu6HcWHUYnFAFwXH2-oq-P6g&s");
+  background-size: cover;
+  background-position: center;
+}
+.card {
+  height: 500px;
+  margin-bottom: 1rem;
+}
+.card-container {
+  gap: 3.5rem;
+}
+.avatar {
+  min-width: 6rem;
+}
